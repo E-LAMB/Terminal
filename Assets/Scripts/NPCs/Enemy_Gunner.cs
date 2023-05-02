@@ -84,23 +84,17 @@ public class Enemy_Gunner : MonoBehaviour
 
     void FireBullet()
     {
-        if (bat_time > 0.2f)
+        if (bat_time > 1f)
         {
             bat_time = 0f;
+
             the_bullet_gameobject = Instantiate(bullet_prefab, bullet_hole.position, bullet_hole.localRotation);
 
             the_bullet_script = the_bullet_gameobject.GetComponent<Bullet>();
 
             the_bullet_script.faceaway = bullet_faceaway;
 
-        }
-    }
 
-    public void DoKnockback()
-    {
-        if (bat_time > 0f && bat_time < 1f)
-        {
-            the_player_script.PlayerTakesDamage(bat_damage, 0.2f);
         }
     }
 
@@ -147,10 +141,9 @@ public class Enemy_Gunner : MonoBehaviour
             {
                 speed = 0f;
 
-                if (bat_time < 0f)
-                {
-                    FireBullet();
-                }
+                FireBullet();
+
+                walk_to.transform.position = playertrans.position;
 
             } else
             {
@@ -162,7 +155,7 @@ public class Enemy_Gunner : MonoBehaviour
 
         }
 
-        bat_time -= Time.deltaTime;
+        bat_time += Time.deltaTime;
 
         if (walk_to.transform.position.x > self.position.x)
         {
