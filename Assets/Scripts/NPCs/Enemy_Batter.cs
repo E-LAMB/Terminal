@@ -46,16 +46,28 @@ public class Enemy_Batter : MonoBehaviour
 
     public float bat_damage;
 
+    public EntityHealth my_health;
+    public Consume my_consume;
+
+    public GameObject bat_collective;
+
+    public SpawnRooms spawner;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         current_mode = 1;
 
         player = GameObject.FindGameObjectWithTag("Player");
         playertrans = player.GetComponent<Transform>();
         the_player_script = player.GetComponent<PlayerControls>();
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnRooms>();
         bat_time = 4f;
         old_x_scale = scale.x;
+
+        bat_damage += spawner.current_room / 8f;
+        
     }
 
     void SwingBat()
@@ -80,12 +92,30 @@ public class Enemy_Batter : MonoBehaviour
         {
             current_mode = 2;
             speed += 1;
+            if ((spawner.current_room / 8f) > 3f)
+            {
+                speed += 3f;
+            } else
+            {
+                speed += spawner.current_room / 8f;
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (my_health.is_dead && current_mode != 3)
+        {
+            current_mode = 3;
+            my_consume.can_be_consumed = true;
+            my_body.constraints = RigidbodyConstraints2D.None;
+            my_body.velocity = new Vector2(2f, 2f);
+            my_body.angularVelocity = 20f;
+            bat_collective.SetActive(false);
+        }
+
         if (bat_time < 5f)
         {
             bat_time += Time.deltaTime * 3f;
@@ -134,6 +164,11 @@ public class Enemy_Batter : MonoBehaviour
 
         if (current_mode == 1)
         {
+
+            if (my_health.taken_damage && current_mode == 1)
+            {
+                PlayerInSight();
+            }
 
             if (patrolling_to_a)
             {
