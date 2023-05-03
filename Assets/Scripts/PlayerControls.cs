@@ -71,6 +71,8 @@ public class PlayerControls : MonoBehaviour
 
     public PhysicsMaterial2D my_dead_mat;
 
+    public float frenzy_restoration;
+
     public int ability_state;
     // 0 = No Ability
     // 1 = Ability Ready
@@ -94,7 +96,13 @@ public class PlayerControls : MonoBehaviour
 
         if (current_ability == 4 && ability_state == 2)
         {
-            ability_time += 4f;
+            ability_time += frenzy_restoration;
+
+            if (frenzy_restoration > 0f)
+            {
+                frenzy_restoration -= 0.5f;
+            }
+
             if (ability_time > 9f)
             {
                 ability_time = 9f;
@@ -192,6 +200,7 @@ public class PlayerControls : MonoBehaviour
             if (current_ability == 3) {screech_attack.SetActive(true);}
 
             if (current_ability == 4) {ability_time = 9f; }
+            if (current_ability == 4) {frenzy_restoration = 5f;}
 
             if (current_ability == 5) {ability_time = 20f;}
             if (current_ability == 5) {is_cloaked = true;}
@@ -239,7 +248,7 @@ public class PlayerControls : MonoBehaviour
 
         if (attack_time < 3f)
         {
-            attack_time += Time.deltaTime;
+            attack_time += Time.deltaTime * 1.5f;
         }
 
         if (current_ability == 4 && ability_state == 2)
@@ -247,8 +256,8 @@ public class PlayerControls : MonoBehaviour
 
             if (attack_time < 0.65f)
             {
-                movement_speed = normal_movement_speed / 4f;
-                climb_speed = normal_climbing_speed / 4f;
+                movement_speed = normal_movement_speed / 2f;
+                climb_speed = normal_climbing_speed / 2f;
             } else
             {
                 movement_speed = normal_movement_speed * 1.4f;
@@ -260,8 +269,8 @@ public class PlayerControls : MonoBehaviour
 
             if (attack_time < 0.65f)
             {
-                movement_speed = normal_movement_speed / 10f;
-                climb_speed = normal_climbing_speed / 10f;
+                movement_speed = normal_movement_speed / 5f;
+                climb_speed = normal_climbing_speed / 5f;
             } else
             {
                 movement_speed = normal_movement_speed * 1.1f; 

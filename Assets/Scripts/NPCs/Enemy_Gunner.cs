@@ -44,7 +44,7 @@ public class Enemy_Gunner : MonoBehaviour
 
     public PlayerControls the_player_script;
 
-    public float bat_damage;
+    public float bullet_damage;
 
     public EntityHealth my_health;
     public Consume my_consume;
@@ -67,10 +67,19 @@ public class Enemy_Gunner : MonoBehaviour
     public Transform bullet_faceaway;
     public GameObject bullet_prefab;
 
+    public AnimationCurve damage_curve;
+    public AnimationCurve health_curve;
+    public AnimationCurve speed_bonus_curve;
+
+    public float speed_bonus;
+
     // Start is called before the first frame update
     void Start()
     {
-        current_mode = 1;
+        if (current_mode != 4)
+        {
+            current_mode = 1;
+        }
 
         player = GameObject.FindGameObjectWithTag("Player");
         playertrans = player.GetComponent<Transform>();
@@ -79,21 +88,26 @@ public class Enemy_Gunner : MonoBehaviour
         old_x_scale = scale.x;
 
         spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnRooms>();
-        bat_damage += spawner.current_room / 8f;
+        
+        bullet_damage = damage_curve.Evaluate(spawner.current_room);
+        my_health.health = health_curve.Evaluate(spawner.current_room);
+        speed_bonus = speed_bonus_curve.Evaluate(spawner.current_room);
+        my_health.health = Mathf.RoundToInt(my_health.health);
     }
 
     void FireBullet()
     {
-        if (bat_time > 1f)
+        if (bat_time > 0.2f)
         {
+            
             bat_time = 0f;
 
             the_bullet_gameobject = Instantiate(bullet_prefab, bullet_hole.position, bullet_hole.localRotation);
 
             the_bullet_script = the_bullet_gameobject.GetComponent<Bullet>();
 
-            the_bullet_script.faceaway = bullet_faceaway;
-
+            the_bullet_script.my_damage = bullet_damage;
+            the_bullet_script.directions = 90f * directional_multiplier;
 
         }
     }
@@ -103,7 +117,7 @@ public class Enemy_Gunner : MonoBehaviour
         if (!the_player_script.is_cloaked && current_mode == 1)
         {
             current_mode = 2;
-            speed += 1;
+            // speed += speed_bonus;
         }
     }
 
@@ -137,7 +151,7 @@ public class Enemy_Gunner : MonoBehaviour
 
         if (current_mode == 2)
         {
-            if (has_sight)
+            if (has_sight && sight_distance < 8f)
             {
                 speed = 0f;
 
@@ -147,7 +161,7 @@ public class Enemy_Gunner : MonoBehaviour
 
             } else
             {
-                speed = 1.5f;
+                speed = speed_bonus;
                 walk_to.transform.position = playertrans.position;
             }
 
@@ -175,6 +189,18 @@ public class Enemy_Gunner : MonoBehaviour
             directional_multiplier = 1f;
         }
 
+        if (current_mode == 4) // Idle Standing
+        {
+
+            speed = 0f;
+
+            if (has_sight && sight_distance < 15f)
+            {
+                current_mode = 2;
+            }
+
+        }
+
         if (current_mode == 1)
         {
 
@@ -193,7 +219,7 @@ public class Enemy_Gunner : MonoBehaviour
                 patrolling_to_a = !patrolling_to_a;
             }
 
-            if (has_sight)
+            if (has_sight && sight_distance < 12f)
             {
                 current_mode = 2;
             }
