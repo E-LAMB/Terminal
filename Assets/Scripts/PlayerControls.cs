@@ -179,7 +179,7 @@ public class PlayerControls : MonoBehaviour
             if (current_ability == 1) {ability_time = 0.5f;}
             if (current_ability == 1) {can_attack = false;}
 
-            if (current_ability == 2) {ability_time = 1f;}
+            if (current_ability == 2) {ability_time = 0.5f;}
             if (current_ability == 2) {pounce_attack.SetActive(true);}
             // if (current_ability == 2) {my_body.AddForce(new Vector2(0f, 15f));}
 
@@ -192,7 +192,7 @@ public class PlayerControls : MonoBehaviour
             if (current_ability == 5) {is_cloaked = true;}
 
             if (current_ability == 6) {ability_time = 0f;}
-            if (current_ability == 6) {player_health += 15f;}
+            if (current_ability == 6) {player_health += 255f;}
 
             if (current_ability == 7) {ability_time = 3f;}
 

@@ -45,6 +45,7 @@ public class Enemy_Batter : MonoBehaviour
     public PlayerControls the_player_script;
 
     public float bat_damage;
+    public float speed_bonus;
 
     public EntityHealth my_health;
     public Consume my_consume;
@@ -52,6 +53,10 @@ public class Enemy_Batter : MonoBehaviour
     public GameObject bat_collective;
 
     public SpawnRooms spawner;
+
+    public AnimationCurve damage_curve;
+    public AnimationCurve health_curve;
+    public AnimationCurve speed_bonus_curve;
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +71,10 @@ public class Enemy_Batter : MonoBehaviour
         bat_time = 4f;
         old_x_scale = scale.x;
 
-        bat_damage += spawner.current_room / 8f;
-        
+        bat_damage = damage_curve.Evaluate(spawner.current_room);
+        my_health.health = health_curve.Evaluate(spawner.current_room);
+        speed_bonus = speed_bonus_curve.Evaluate(spawner.current_room);
+
     }
 
     void SwingBat()
@@ -91,7 +98,8 @@ public class Enemy_Batter : MonoBehaviour
         if (!the_player_script.is_cloaked && current_mode == 1)
         {
             current_mode = 2;
-            speed += 1;
+            speed += speed_bonus;
+            /*
             if ((spawner.current_room / 8f) > 3f)
             {
                 speed += 3f;
@@ -99,6 +107,7 @@ public class Enemy_Batter : MonoBehaviour
             {
                 speed += spawner.current_room / 8f;
             }
+            */
         }
     }
 
