@@ -32,6 +32,23 @@ public class Consume : MonoBehaviour
         player_trans = player_object.GetComponent<Transform>();
     }
 
+    public void Consumed()
+    {
+        if (unconsumed_effects != null)
+        {
+            unconsumed_effects.SetActive(false);
+        }
+        if (unconsumed_renderer != null)
+        {
+            unconsumed_renderer.enabled = false;
+        }
+
+        consumed = true;
+        to_play.Play();
+        player_script.ConsumedBeing(to_restore);
+        Destroy(to_destroy, 1f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,19 +57,7 @@ public class Consume : MonoBehaviour
 
         if (can_be_consumed && player_distance < 1f && Input.GetKeyDown(player_script.key_interact) && !consumed)
         {
-            if (unconsumed_effects != null)
-            {
-                unconsumed_effects.SetActive(false);
-            }
-            if (unconsumed_renderer != null)
-            {
-                unconsumed_renderer.enabled = false;
-            }
-
-            consumed = true;
-            to_play.Play();
-            player_script.ConsumedBeing(to_restore);
-            Destroy(to_destroy, 1f);
+            Consumed();
         }
 
     }

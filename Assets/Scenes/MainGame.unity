@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 110106758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12d9b104a9055443a62abf863f712a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 73643c909dd33a149b1969c8ca599ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player_script: {fileID: 2146592417}
@@ -6028,6 +6028,7 @@ MonoBehaviour:
   pounce_attack: {fileID: 110106758}
   screech_attack: {fileID: 156212679}
   my_icon: {fileID: 1867274331}
+  my_dead_mat: {fileID: 6200000, guid: 02daca895420cf043804f4b6090e2d4e, type: 2}
   ability_state: 0
   current_ability: 0
 --- !u!70 &2146592418
@@ -13857,6 +13858,11 @@ MonoBehaviour:
   usual_i_frames: 0.2
   is_dead: 0
   taken_damage: 0
+  health_bar: {fileID: 0}
+  health_object: {fileID: 0}
+  original_scale: {x: 0, y: 0, z: 0}
+  new_scale: {x: 0, y: 0, z: 0}
+  max_health_ever: 0
 --- !u!61 &7293555151171658550
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -69,6 +69,8 @@ public class PlayerControls : MonoBehaviour
 
     public AbilityIcon my_icon;
 
+    public PhysicsMaterial2D my_dead_mat;
+
     public int ability_state;
     // 0 = No Ability
     // 1 = Ability Ready
@@ -93,6 +95,10 @@ public class PlayerControls : MonoBehaviour
         if (current_ability == 4 && ability_state == 2)
         {
             ability_time += 4f;
+            if (ability_time > 9f)
+            {
+                ability_time = 9f;
+            }
         }
     }
 
@@ -179,14 +185,13 @@ public class PlayerControls : MonoBehaviour
             if (current_ability == 1) {ability_time = 0.5f;}
             if (current_ability == 1) {can_attack = false;}
 
-            if (current_ability == 2) {ability_time = 0.5f;}
+            if (current_ability == 2) {ability_time = 0.2f;}
             if (current_ability == 2) {pounce_attack.SetActive(true);}
-            // if (current_ability == 2) {my_body.AddForce(new Vector2(0f, 15f));}
 
             if (current_ability == 3) {ability_time = 0.5f;}
             if (current_ability == 3) {screech_attack.SetActive(true);}
 
-            if (current_ability == 4) {ability_time = 8f;}
+            if (current_ability == 4) {ability_time = 9f; }
 
             if (current_ability == 5) {ability_time = 20f;}
             if (current_ability == 5) {is_cloaked = true;}
@@ -209,7 +214,7 @@ public class PlayerControls : MonoBehaviour
 
         if (ability_state == 2 && current_ability == 4)
         {
-            player_damage = base_damage * 2f;
+            player_damage = base_damage * 3f;
         }
 
         if (ability_state == 2 && 0f > ability_time)
@@ -246,8 +251,8 @@ public class PlayerControls : MonoBehaviour
                 climb_speed = normal_climbing_speed / 4f;
             } else
             {
-                movement_speed = normal_movement_speed * 1.2f;
-                climb_speed = normal_climbing_speed * 1.2f;
+                movement_speed = normal_movement_speed * 1.4f;
+                climb_speed = normal_climbing_speed * 1.4f;
             }
 
         } else
@@ -259,8 +264,8 @@ public class PlayerControls : MonoBehaviour
                 climb_speed = normal_climbing_speed / 10f;
             } else
             {
-                movement_speed = normal_movement_speed;
-                climb_speed = normal_climbing_speed;
+                movement_speed = normal_movement_speed * 1.1f; 
+                climb_speed = normal_climbing_speed * 1.1f;
             }
 
         }
@@ -335,7 +340,7 @@ public class PlayerControls : MonoBehaviour
             my_body.velocity = new Vector3 (movement_speed * 3.5f * dash_direction, 0f, 0f);
         } else if (current_ability == 2 && ability_state == 2) // Pounce Ability
         {
-            my_body.velocity = new Vector3 (movement_speed * 4.5f * dash_direction, my_body.velocity.y, 0f);
+            my_body.velocity = new Vector3 (movement_speed * 4.5f * dash_direction, 0f, 0f);
         } else
         {
             dash_direction = last_direction_faced;
@@ -351,6 +356,7 @@ public class PlayerControls : MonoBehaviour
 
         if (player_health <= 0f)
         {
+            my_body.sharedMaterial = my_dead_mat;
             my_body.constraints = RigidbodyConstraints2D.None;
             is_cloaked = true;
             my_renderer.color = new Vector4 (0.5f, 0.5f, 0.5f, 1f);

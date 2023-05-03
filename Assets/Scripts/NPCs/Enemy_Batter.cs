@@ -74,6 +74,7 @@ public class Enemy_Batter : MonoBehaviour
         bat_damage = damage_curve.Evaluate(spawner.current_room);
         my_health.health = health_curve.Evaluate(spawner.current_room);
         speed_bonus = speed_bonus_curve.Evaluate(spawner.current_room);
+        my_health.health = Mathf.RoundToInt(my_health.health);
 
     }
 
