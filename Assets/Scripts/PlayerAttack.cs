@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     public float my_damage;
 
     public bool manual_damage;
+    public float bonus_damage;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!manual_damage)
         {
-            my_damage = player_script.player_damage;
+            my_damage = player_script.player_damage + bonus_damage;
         }
     }
 

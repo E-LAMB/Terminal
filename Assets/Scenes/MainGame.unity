@@ -154,7 +154,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 905851630}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &110106760
 MonoBehaviour:
@@ -492,12 +492,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156212679}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 22.5, y: 10.5, z: 1}
+  m_LocalScale: {x: 685.7144, y: 320, z: 1}
   m_Children: []
   m_Father: {fileID: 905851630}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &156212681
 CircleCollider2D:
@@ -528,8 +528,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_script: {fileID: 2146592417}
-  my_damage: 9000
-  manual_damage: 1
+  my_damage: 12
+  manual_damage: 0
+  bonus_damage: 8
 --- !u!212 &156212683
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1429,7 +1430,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1015
+    m_Bits: 2039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2079,8 +2080,8 @@ Transform:
   m_Children:
   - {fileID: 1030929778}
   - {fileID: 1965960168}
-  - {fileID: 110106759}
   - {fileID: 156212680}
+  - {fileID: 110106759}
   - {fileID: 605851416}
   m_Father: {fileID: 2146592415}
   m_RootOrder: 0
@@ -3595,7 +3596,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   player_is_close: 0
-  spawn_range: 200
+  spawn_range: 300
   self: {fileID: 1423062716}
   spawn_cooldown: 0
   cooldown_set: 0.5
@@ -3863,6 +3864,7 @@ MonoBehaviour:
   - {fileID: 7635126526931361358, guid: fa8d279ecab53a94fb32fa453e03e56d, type: 3}
   - {fileID: 4042856175255912107, guid: d626ab2ec3ee937429c47ad0071d7913, type: 3}
   - {fileID: 5882370446243237767, guid: d9498df2580395f40bbe92e7ce5c8205, type: 3}
+  - {fileID: 8774855291592611067, guid: 5cf9ad3c38485364d96b0a966c561769, type: 3}
   filler_rooms:
   - {fileID: 6709282259437346195, guid: eb8d7c1c0e624bd42acb76e31aac5153, type: 3}
   - {fileID: 249714545589567484, guid: ddf88e4a11fa6b54881b78570429d60c, type: 3}
@@ -5786,6 +5788,7 @@ MonoBehaviour:
   player_script: {fileID: 2146592417}
   my_damage: 0
   manual_damage: 0
+  bonus_damage: 0
 --- !u!1 &2071963724
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,6 +5983,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   on_ladder: 0
+  capsule_layer:
+    serializedVersion: 2
+    m_Bits: 1024
+  in_capsule: 0
   ground_layer:
     serializedVersion: 2
     m_Bits: 256

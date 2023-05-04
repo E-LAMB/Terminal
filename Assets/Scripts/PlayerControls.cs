@@ -33,6 +33,9 @@ public class PlayerControls : MonoBehaviour
     public LayerMask ladder_layer;
     public bool on_ladder;
 
+    public LayerMask capsule_layer;
+    public bool in_capsule;
+
     public LayerMask ground_layer;
     public bool on_ground;
 
@@ -323,6 +326,8 @@ public class PlayerControls : MonoBehaviour
         on_ladder = Physics2D.OverlapCircle(checker.transform.position, 0.1f, ladder_layer);
         on_ground = Physics2D.OverlapCircle(checker.transform.position, 0.3f, ground_layer);
 
+        in_capsule = Physics2D.OverlapCircle(checker.transform.position, 0.3f, capsule_layer);
+
         if (!on_ladder) {on_ladder = Physics2D.OverlapCircle(self.transform.position, 0.3f, ladder_layer);}
 
         my_body.velocity = new Vector3 (movement_speed * Input.GetAxis("Horizontal"), my_body.velocity.y, 0f);
@@ -362,6 +367,15 @@ public class PlayerControls : MonoBehaviour
         } 
 
         sprite.localScale = scale;
+
+        if (in_capsule)
+        {
+            player_health += 15f * Time.deltaTime;
+        }
+        if (player_health > max_health)
+        {
+            player_health = max_health;
+        }
 
         if (player_health <= 0f)
         {

@@ -97,7 +97,7 @@ public class Enemy_Gunner : MonoBehaviour
 
     void FireBullet()
     {
-        if (bat_time > 0.2f)
+        if (bat_time > 0.05f)
         {
             
             bat_time = 0f;
@@ -130,6 +130,11 @@ public class Enemy_Gunner : MonoBehaviour
 
         has_sight = Physics2D.Raycast(transform.position, sight_direction, sight_distance, sight_player);
         has_sight = !has_sight;
+
+        if (the_player_script.is_cloaked)
+        {
+            has_sight = false;
+        }
 
         if (my_health.is_dead && current_mode != 3)
         {

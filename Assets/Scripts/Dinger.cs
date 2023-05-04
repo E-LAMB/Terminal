@@ -5,32 +5,28 @@ using UnityEngine;
 public class Dinger : MonoBehaviour
 {
 
-    public GameObject object_a; 
-    public GameObject object_b; // Needed if determining between two
+    public GameObject[] objects; 
+
+    public AnimationCurve spawn_rates;
+    public SpawnRooms spawner;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (object_b == null)
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnRooms>();
+
+        if (Random.Range(1f,100f) > spawn_rates.Evaluate(spawner.current_room))
         {
-            if (Random.Range(1,3) == 1)
-            {
-                object_a.SetActive(true);
-            } else
-            {
-                object_a.SetActive(false);
-            }
-        } else
+            Destroy(gameObject.GetComponent<Dinger>());
+        }
+        
+        GameObject selected;
+
+        selected = objects[Random.Range(0, objects.Length)];
+
+        if (selected != null)
         {
-            if (Random.Range(1,3) == 1)
-            {
-                object_a.SetActive(true);
-                object_b.SetActive(false);
-            } else
-            {
-                object_a.SetActive(false);
-                object_b.SetActive(true);
-            }
+            selected.SetActive(true);
         }
 
         Destroy(gameObject.GetComponent<Dinger>());

@@ -7489,9 +7489,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2119405302964835824, guid: 09cc35d20fe1fc144a71a9521502b0b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250816005924829024, guid: 09cc35d20fe1fc144a71a9521502b0b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4932612519604300611, guid: 09cc35d20fe1fc144a71a9521502b0b8, type: 3}
       propertyPath: current_mode
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4932612519604300611, guid: 09cc35d20fe1fc144a71a9521502b0b8, type: 3}
       propertyPath: should_move_left
