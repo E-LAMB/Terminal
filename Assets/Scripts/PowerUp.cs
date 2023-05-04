@@ -25,7 +25,7 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        power_ID = Random.Range(1, 9);
+        power_ID = Random.Range(1, 7);
         player_object = GameObject.FindGameObjectWithTag("Player");
         player_script = player_object.GetComponent<PlayerControls>();
         player_trans = player_object.GetComponent<Transform>();

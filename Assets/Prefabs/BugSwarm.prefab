@@ -5379,7 +5379,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -10242,6 +10242,7 @@ MonoBehaviour:
   player_script: {fileID: 0}
   player_trans: {fileID: 0}
   unconsumed_effects: {fileID: 3306730888262848943}
+  unconsumed_renderer: {fileID: 0}
   to_restore: 10
   consumed: 0
   can_be_consumed: 1

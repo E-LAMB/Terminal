@@ -117,6 +117,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (i_frames < 0f)
         {
+            if (current_ability == 5 && ability_state == 2) {ability_time = -1f;}
             i_frames = granted_i;
             player_health -= damage_taken;
         }
@@ -198,12 +199,13 @@ public class PlayerControls : MonoBehaviour
 
             if (current_ability == 2) {ability_time = 0.2f;}
             if (current_ability == 2) {pounce_attack.SetActive(true);}
+            if (current_ability == 2) {can_attack = false;}
 
             if (current_ability == 3) {ability_time = 0.5f;}
             if (current_ability == 3) {screech_attack.SetActive(true);}
 
             if (current_ability == 4) {ability_time = 9f; }
-            if (current_ability == 4) {frenzy_restoration = 5f;}
+            if (current_ability == 4) {frenzy_restoration = 5.5f;}
 
             if (current_ability == 5) {ability_time = 20f;}
             if (current_ability == 5) {is_cloaked = true;}
@@ -211,9 +213,9 @@ public class PlayerControls : MonoBehaviour
             if (current_ability == 6) {ability_time = 0f;}
             if (current_ability == 6) {player_health += 255f;}
 
-            if (current_ability == 7) {ability_time = 3f;}
+            // if (current_ability == 7) {ability_time = 3f;}
 
-            if (current_ability == 8) {ability_time = 5f;}
+            // if (current_ability == 8) {ability_time = 5f;}
 
             my_icon.PowerBegin(current_ability, ability_time);
 
@@ -233,6 +235,7 @@ public class PlayerControls : MonoBehaviour
         {
 
             if (current_ability == 1) {can_attack = true;}
+            if (current_ability == 2) {can_attack = true;}
             if (current_ability == 2) {pounce_attack.SetActive(false);}
             if (current_ability == 3) {screech_attack.SetActive(false);}
             if (current_ability == 5) {is_cloaked = false;}
@@ -265,6 +268,19 @@ public class PlayerControls : MonoBehaviour
             {
                 movement_speed = normal_movement_speed * 1.4f;
                 climb_speed = normal_climbing_speed * 1.4f;
+            }
+
+        } else if (current_ability == 5 && ability_state == 2)
+        {
+
+            if (attack_time < 0.65f)
+            {
+                movement_speed = normal_movement_speed / 4f;
+                climb_speed = normal_climbing_speed / 4f;
+            } else
+            {
+                movement_speed = normal_movement_speed * 1.25f;
+                climb_speed = normal_climbing_speed * 1.25f;
             }
 
         } else
@@ -370,7 +386,7 @@ public class PlayerControls : MonoBehaviour
 
         if (in_capsule)
         {
-            player_health += 15f * Time.deltaTime;
+            player_health += 25f * Time.deltaTime;
         }
         if (player_health > max_health)
         {
@@ -382,6 +398,7 @@ public class PlayerControls : MonoBehaviour
             my_body.sharedMaterial = my_dead_mat;
             my_body.constraints = RigidbodyConstraints2D.None;
             is_cloaked = true;
+            my_body.gravityScale = 1.5f;
             my_renderer.color = new Vector4 (0.5f, 0.5f, 0.5f, 1f);
             screech_attack.SetActive(false);
             pounce_attack.SetActive(false);

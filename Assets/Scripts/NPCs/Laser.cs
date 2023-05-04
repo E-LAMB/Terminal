@@ -32,10 +32,10 @@ public class Laser : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
+        // Debug.Log(other.tag);
         if (other.tag == "Player")
         {
-            Debug.Log("Hit");
+            // Debug.Log("Hit");
             player_script.PlayerTakesDamage(damage, 0.05f);
             is_active = false;
             timer = -5f;
